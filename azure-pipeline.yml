@@ -1,0 +1,99 @@
+parameters:
+- name: tfver
+  displayName: "Latest 1.1 Terraform version to run Terraform operations"
+  type: string
+  default: "1.1.9"
+- name: tftestver
+  displayName: "Latest 1.1 Terraform version to validate code"
+  type: string
+  default: "1.1.9"
+
+#variables:
+#- template: ci/templates/common_variables.yml
+
+steps:
+  - task: qetza.replacetokens.replacetokens-task.replacetokens@5
+    displayName: 'Replace tokens in **/*.tf'
+    inputs:
+      rootDirectory: '$(System.DefaultWorkingDirectory)'
+      targetFiles: '**/*.tf'
+      tokenPattern: rm
+      actionOnNoFiles: warn
+      enableTelemetry: false
+  
+  # - script: |
+  #     echo $(Agent.BuildDirectory)
+  #     curl "https://releases.hashicorp.com/terraform/${{ parameters.tfver }}/terraform_${{ parameters.tfver }}_linux_amd64.zip" -o terraform.zip
+  #     unzip terraform.zip
+  #     rm terraform.zip
+  #     sudo mv -vf terraform /usr/local/bin/terraform
+  #     terraform --version
+  #   displayName: 'Installing Terraform version ${{ parameters.tfver }}'
+  #   env:
+  #     CHECKPOINT_DISABLE: "TRUE"
+  
+  # - script: |
+  #     cd ./terraform/
+  #     terraform fmt -check -diff
+  #   displayName: 'Validating Terraform files for proper format. (terraform fmt)'
+
+  - script: |
+      cd ./terraform/
+      terraform init
+      curl -s https://raw.githubusercontent.com/terraform-linters/tflint/master/install_linux.sh | bash
+      tflint -c $(Agent.BuildDirectory)/s/scripts/tflint/tflintrules.hcl --no-color
+    displayName: 'Running TFlint'
+    condition: succeeded()
+    env:
+      ARM_CLIENT_ID: $(ARM_CLIENT_ID)
+      ARM_CLIENT_SECRET: $(ARM_CLIENT_SECRET)
+      ARM_SUBSCRIPTION_ID: $(ARM_SUBSCRIPTION_ID)
+      ARM_TENANT_ID: $(ARM_TENANT_ID)
+
+  - script: |
+      cd ..
+      cd ./terraform/
+      terraform init
+      terraform validate
+    displayName: 'Validating Terraform for ${{ parameters.tftestver }}'
+    condition: succeeded()
+    env:
+      ARM_CLIENT_ID: $(ARM_CLIENT_ID)
+      ARM_CLIENT_SECRET: $(ARM_CLIENT_SECRET)
+      ARM_SUBSCRIPTION_ID: $(ARM_SUBSCRIPTION_ID)
+      ARM_TENANT_ID: $(ARM_TENANT_ID)
+
+  - script: |
+      cd ./terraform/
+      terraform init
+      terraform plan -out=tfplan$(Build.BuildNumber).json
+    displayName: 'Running Terraform Plan'
+    condition: succeeded()
+    env:
+      ARM_CLIENT_ID: $(ARM_CLIENT_ID)
+      ARM_CLIENT_SECRET: $(ARM_CLIENT_SECRET)
+      ARM_SUBSCRIPTION_ID: $(ARM_SUBSCRIPTION_ID)
+      ARM_TENANT_ID: $(ARM_TENANT_ID) 
+
+  - task: CopyFiles@2
+    displayName: 'Copy Terraform files to artifacts'
+    inputs:
+      contents: 'terraform/*.json'
+      targetFolder: '$(Build.ArtifactStagingDirectory)'
+
+  - task: PublishBuildArtifacts@1
+    displayName: 'Publish Artifact'
+    inputs:
+      pathToPublish: '$(Build.ArtifactStagingDirectory)'
+      artifactName: 'drop'
+
+  - script: |
+      cd ./terraform/
+      terraform apply -auto-approve
+    displayName: 'Running Terraform Apply'
+    condition: succeeded()
+    env:
+      ARM_CLIENT_ID: $(ARM_CLIENT_ID)
+      ARM_CLIENT_SECRET: $(ARM_CLIENT_SECRET)
+      ARM_SUBSCRIPTION_ID: $(ARM_SUBSCRIPTION_ID)
+      ARM_TENANT_ID: $(ARM_TENANT_ID) 
