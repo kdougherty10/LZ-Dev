@@ -1,26 +1,26 @@
-#IT-Root RBAC Roles
-module "it-root-readers" {
+#lz-Root RBAC Roles
+module "lz-root-readers" {
     source = "./modules/rbac"
     name = "Az_Reader"
-    description = "View all resources in the ${module.it-root.name} management group, but does not allow you to make any changes."
-    scope = module.it-root.id
+    description = "View all resources in the ${module.lz-root.name} management group, but does not allow you to make any changes."
+    scope = module.lz-root.id
     actions = ["*/read",]
     not_actions = []
-    assignable_scopes = [var.subscription,module.it-root.id]
+    assignable_scopes = [var.subscription,module.lz-root.id]
     subscription_name = var.subscription_name
 }
 
-resource "azurerm_role_assignment" "it-root-readers" {
-    scope = module.it-root.id
-    role_definition_name = module.it-root-readers.role_id
+resource "azurerm_role_assignment" "lz-root-readers" {
+    scope = module.lz-root.id
+    role_definition_name = module.lz-root-readers.role_id
     principal_id = "4218f776-72f7-4a06-889a-07a65efe1f45"
 }
 
-module "it-root-contributors" {
+module "lz-root-contributors" {
     source = "./modules/rbac"
     name = "Az_Contributor"
-    description = "Grants full access to manage all resources in the ${module.it-root.name} management group, but does not allow you to assign roles in Azure RBAC, manage assignments in Azure Blueprints, or share image galleries."
-    scope = module.it-root.id
+    description = "Grants full access to manage all resources in the ${module.lz-root.name} management group, but does not allow you to assign roles in Azure RBAC, manage assignments in Azure Blueprints, or share image galleries."
+    scope = module.lz-root.id
     actions = ["*",]
     not_actions = [        
         "Microsoft.Authorization/*/Delete",
@@ -30,21 +30,21 @@ module "it-root-contributors" {
         "Microsoft.Blueprint/blueprintAssignments/delete",
         "Microsoft.Compute/galleries/share/action"
         ]
-    assignable_scopes = [var.subscription,module.it-root.id]
+    assignable_scopes = [var.subscription,module.lz-root.id]
     subscription_name = var.subscription_name
 }
 
-resource "azurerm_role_assignment" "it-root-contributors" {
-    scope = module.it-root.id
-    role_definition_name = module.it-root-contributors.role_id
+resource "azurerm_role_assignment" "lz-root-contributors" {
+    scope = module.lz-root.id
+    role_definition_name = module.lz-root-contributors.role_id
     principal_id = "4218f776-72f7-4a06-889a-07a65efe1f45"
 }
 
-module "it-root-cmcontributor" {
+module "lz-root-cmcontributor" {
     source = "./modules/rbac"
     name = "Az_CostManagementContributor"
-    description = "Can view costs and manage cost configuration (e.g. budgets, exports) in ${module.it-root.name}."
-    scope = module.it-root.id
+    description = "Can view costs and manage cost configuration (e.g. budgets, exports) in ${module.lz-root.name}."
+    scope = module.lz-root.id
     actions = [        
         "Microsoft.Consumption/*",
         "Microsoft.CostManagement/*",
@@ -58,21 +58,21 @@ module "it-root-cmcontributor" {
         "Microsoft.Billing/billingProperty/read"
         ]
     not_actions = []
-    assignable_scopes = [var.subscription,module.it-root.id]
+    assignable_scopes = [var.subscription,module.lz-root.id]
     subscription_name = var.subscription_name
 }
 
-resource "azurerm_role_assignment" "it-root-cmcontributor" {
-    scope = module.it-root.id
-    role_definition_name = module.it-root-cmcontributor.role_id
+resource "azurerm_role_assignment" "lz-root-cmcontributor" {
+    scope = module.lz-root.id
+    role_definition_name = module.lz-root-cmcontributor.role_id
     principal_id = "4218f776-72f7-4a06-889a-07a65efe1f45"
 }
 
-module "it-root-lacontributor" {
+module "lz-root-lacontributor" {
     source = "./modules/rbac"
     name = "Az_LogAnalyticsContributor"
-    description = "Log Analytics Contributor can read all monitoring data and edit monitoring settings. Editing monitoring settings includes adding the VM extension to VMs; reading storage account keys to be able to configure collection of logs from Azure Storage; adding solutions; and configuring Azure diagnostics on all Azure resources in the ${module.it-root.name} management group."
-    scope = module.it-root.id
+    description = "Log Analytics Contributor can read all monitoring data and edit monitoring settings. Editing monitoring settings includes adding the VM extension to VMs; reading storage account keys to be able to configure collection of logs from Azure Storage; adding solutions; and configuring Azure diagnostics on all Azure resources in the ${module.lz-root.name} management group."
+    scope = module.lz-root.id
     actions = [
         "*/read",
         "Microsoft.ClassicCompute/virtualMachines/extensions/*",
@@ -89,38 +89,38 @@ module "it-root-lacontributor" {
         "Microsoft.Support/*"
     ]
     not_actions = []
-    assignable_scopes = [var.subscription,module.it-root.id]
+    assignable_scopes = [var.subscription,module.lz-root.id]
     subscription_name = var.subscription_name
 }
 
-resource "azurerm_role_assignment" "it-root-lacontributor" {
-    scope = module.it-root.id
-    role_definition_name = module.it-root-lacontributor.role_id
+resource "azurerm_role_assignment" "lz-root-lacontributor" {
+    scope = module.lz-root.id
+    role_definition_name = module.lz-root-lacontributor.role_id
     principal_id = "4218f776-72f7-4a06-889a-07a65efe1f45"
 }
 
-module "it-root-owner" {
+module "lz-root-owner" {
     source = "./modules/rbac"
     name = "Az_Owner"
-    description = "Grants full access to manage all ${module.it-root.name} resources, including the ability to assign roles in Azure RBAC."
-    scope = module.it-root.id
+    description = "Grants full access to manage all ${module.lz-root.name} resources, including the ability to assign roles in Azure RBAC."
+    scope = module.lz-root.id
     actions = ["*",]
     not_actions = []
-    assignable_scopes = [var.subscription,module.it-root.id]
+    assignable_scopes = [var.subscription,module.lz-root.id]
     subscription_name = var.subscription_name
 }
 
-resource "azurerm_role_assignment" "it-root-owner" {
-    scope = module.it-root.id
-    role_definition_name = module.it-root-owner.role_id
+resource "azurerm_role_assignment" "lz-root-owner" {
+    scope = module.lz-root.id
+    role_definition_name = module.lz-root-owner.role_id
     principal_id = "4218f776-72f7-4a06-889a-07a65efe1f45"
 }
 
-module "it-root-sqldb-contributor" {
+module "lz-root-sqldb-contributor" {
     source = "./modules/rbac"
     name = "Az_SQLDatabaseContributor"
-    description = "Lets you manage ${module.it-root.name} management group SQL databases, but not access to them. Also, you can't manage their security-related policies or their parent SQL servers."
-    scope = module.it-root.id
+    description = "Lets you manage ${module.lz-root.name} management group SQL databases, but not access to them. Also, you can't manage their security-related policies or their parent SQL servers."
+    scope = module.lz-root.id
     actions = [
         "Microsoft.Authorization/*/read",
         "Microsoft.Insights/alertRules/*",
@@ -160,63 +160,63 @@ module "it-root-sqldb-contributor" {
         "Microsoft.Sql/servers/databases/vulnerabilityAssessmentSettings/*",
         "Microsoft.Sql/servers/vulnerabilityAssessments/*"
     ]
-    assignable_scopes = [var.subscription,module.it-root.id]
+    assignable_scopes = [var.subscription,module.lz-root.id]
     subscription_name = var.subscription_name
 }
 
-resource "azurerm_role_assignment" "it-root-sqldb-contributor" {
-    scope = module.it-root.id
-    role_definition_name = module.it-root-sqldb-contributor.role_id
+resource "azurerm_role_assignment" "lz-root-sqldb-contributor" {
+    scope = module.lz-root.id
+    role_definition_name = module.lz-root-sqldb-contributor.role_id
     principal_id = "4218f776-72f7-4a06-889a-07a65efe1f45"
 }
 
-module "it-root-srcontributors" {
+module "lz-root-srcontributors" {
     source = "./modules/rbac"
     name = "Az_SupportRequestContributor"
-    description = "Lets you create and manage Support requests in the ${module.it-root.name} management group."
-    scope = module.it-root.id
+    description = "Lets you create and manage Support requests in the ${module.lz-root.name} management group."
+    scope = module.lz-root.id
     actions = [
         "Microsoft.Authorization/*/read",
         "Microsoft.Resources/subscriptions/resourceGroups/read",
         "Microsoft.Support/*"
     ]
     not_actions = []
-    assignable_scopes = [var.subscription,module.it-root.id]
+    assignable_scopes = [var.subscription,module.lz-root.id]
     subscription_name = var.subscription_name
 }
 
-resource "azurerm_role_assignment" "it-root-srcontributors" {
-    scope = module.it-root.id
-    role_definition_name = module.it-root-srcontributors.role_id
+resource "azurerm_role_assignment" "lz-root-srcontributors" {
+    scope = module.lz-root.id
+    role_definition_name = module.lz-root-srcontributors.role_id
     principal_id = "4218f776-72f7-4a06-889a-07a65efe1f45"
 }
 
-module "it-root-access-admins" {
+module "lz-root-access-admins" {
     source = "./modules/rbac"
     name = "Az_AccessAdmins"
-    description = "Lets you manage user access to Azure resources in the ${module.it-root.name} management group."
-    scope = module.it-root.id
+    description = "Lets you manage user access to Azure resources in the ${module.lz-root.name} management group."
+    scope = module.lz-root.id
     actions = [
         "*/read",
         "Microsoft.Authorization/*",
         "Microsoft.Support/*"
     ]
     not_actions = []
-    assignable_scopes = [var.subscription,module.it-root.id]
+    assignable_scopes = [var.subscription,module.lz-root.id]
     subscription_name = var.subscription_name
 }
 
-resource "azurerm_role_assignment" "it-root-access-admins" {
-    scope = module.it-root.id
-    role_definition_name = module.it-root-access-admins.role_id
+resource "azurerm_role_assignment" "lz-root-access-admins" {
+    scope = module.lz-root.id
+    role_definition_name = module.lz-root-access-admins.role_id
     principal_id = "4218f776-72f7-4a06-889a-07a65efe1f45"
 }
 
-module "it-root-unix-operators" {
+module "lz-root-unix-operators" {
     source = "./modules/rbac"
     name = "Az_UnixVMOperator"
-    description = "Custom rule to operate VMs in the ${module.it-root.name} management group."
-    scope = module.it-root.id
+    description = "Custom rule to operate VMs in the ${module.lz-root.name} management group."
+    scope = module.lz-root.id
     actions = [
         "Microsoft.Compute/*/read",
         "Microsoft.Network/*/read",
@@ -241,21 +241,21 @@ module "it-root-unix-operators" {
         # "Microsoft.Diagnostics/InsightDiagnostics/Invoke/Action"
     ]
     not_actions = []
-    assignable_scopes = [var.subscription,module.it-root.id]
+    assignable_scopes = [var.subscription,module.lz-root.id]
     subscription_name = var.subscription_name
 }
 
-resource "azurerm_role_assignment" "it-root-unix-operators" {
-    scope = module.it-root.id
-    role_definition_name = module.it-root-unix-operators.role_id
+resource "azurerm_role_assignment" "lz-root-unix-operators" {
+    scope = module.lz-root.id
+    role_definition_name = module.lz-root-unix-operators.role_id
     principal_id = "4218f776-72f7-4a06-889a-07a65efe1f45"
 }
 
-module "it-root-windows-operators" {
+module "lz-root-windows-operators" {
     source = "./modules/rbac"
     name = "Az_WindowsVMOperator"
-    description = "Custom rule to operate VMs in the ${module.it-root.name} management group."
-    scope = module.it-root.id
+    description = "Custom rule to operate VMs in the ${module.lz-root.name} management group."
+    scope = module.lz-root.id
     actions = [
 "Microsoft.Compute/*/read",
         "Microsoft.Network/*/read",
@@ -278,21 +278,21 @@ module "it-root-windows-operators" {
         "Microsoft.Storage/storageaccounts/regeneratekey/action"
     ]
     not_actions = []
-    assignable_scopes = [var.subscription,module.it-root.id]
+    assignable_scopes = [var.subscription,module.lz-root.id]
     subscription_name = var.subscription_name
 }
 
-resource "azurerm_role_assignment" "it-root-windows-operators" {
-    scope = module.it-root.id
-    role_definition_name = module.it-root-windows-operators.role_id
+resource "azurerm_role_assignment" "lz-root-windows-operators" {
+    scope = module.lz-root.id
+    role_definition_name = module.lz-root-windows-operators.role_id
     principal_id = "4218f776-72f7-4a06-889a-07a65efe1f45"
 }
 
-module "it-root-prismacloudfunction" {
+module "lz-root-prismacloudfunction" {
     source = "./modules/rbac"
     name = "Az_PrismaCloudFunctionReadOnly"
-    description = "Az_Prisma-Cloud-Function-Read-Only ${module.it-root.name} management group."
-    scope = module.it-root.id
+    description = "Az_Prisma-Cloud-Function-Read-Only ${module.lz-root.name} management group."
+    scope = module.lz-root.id
     actions = [
         "Microsoft.Network/virtualNetworkGateways/read",
         "Microsoft.Web/sites/Read",
@@ -302,21 +302,21 @@ module "it-root-prismacloudfunction" {
         "Microsoft.Web/sites/config/list/Action"
     ]
     not_actions = []
-    assignable_scopes = [var.subscription,module.it-root.id]
+    assignable_scopes = [var.subscription,module.lz-root.id]
     subscription_name = var.subscription_name
 }
 
-resource "azurerm_role_assignment" "it-root-prismacloudfunction" {
-    scope = module.it-root.id
-    role_definition_name = module.it-root-prismacloudfunction.role_id
+resource "azurerm_role_assignment" "lz-root-prismacloudfunction" {
+    scope = module.lz-root.id
+    role_definition_name = module.lz-root-prismacloudfunction.role_id
     principal_id = "4218f776-72f7-4a06-889a-07a65efe1f45"
 }
 
-module "it-root-prismacloudreadonly" {
+module "lz-root-prismacloudreadonly" {
     source = "./modules/rbac"
     name = "Az_PrismaCloudReadonly"
-    description = "Az_Prisma-Cloud-Read-Only ${module.it-root.name} management group."
-    scope = module.it-root.id
+    description = "Az_Prisma-Cloud-Read-Only ${module.lz-root.name} management group."
+    scope = module.lz-root.id
     actions = [
         "Microsoft.Network/virtualNetworkGateways/read",
         "Microsoft.Web/sites/Read",
@@ -326,40 +326,40 @@ module "it-root-prismacloudreadonly" {
         "Microsoft.Web/sites/config/list/Action"
     ]
     not_actions = []
-    assignable_scopes = [var.subscription,module.it-root.id]
+    assignable_scopes = [var.subscription,module.lz-root.id]
     subscription_name = var.subscription_name
 }
 
-resource "azurerm_role_assignment" "it-root-prismacloudreadonly" {
-    scope = module.it-root.id
-    role_definition_name = module.it-root-prismacloudreadonly.role_id
+resource "azurerm_role_assignment" "lz-root-prismacloudreadonly" {
+    scope = module.lz-root.id
+    role_definition_name = module.lz-root-prismacloudreadonly.role_id
     principal_id = "4218f776-72f7-4a06-889a-07a65efe1f45"
 }
 
-#IT-NA-PRD RBAC Roles
+#lz-NA-PRD RBAC Roles
 
-module "it-na-prd-readers" {
+module "lz-na-prd-readers" {
     source = "./modules/rbac"
     name = "Az_Reader"
-    description = "View all resources in the ${module.it-na-prd.name} management group, but does not allow you to make any changes."
-    scope = module.it-na-prd.id
+    description = "View all resources in the ${module.lz-na-prd.name} management group, but does not allow you to make any changes."
+    scope = module.lz-na-prd.id
     actions = ["*/read",]
     not_actions = []
-    assignable_scopes = [var.subscription,module.it-na-prd.id]
+    assignable_scopes = [var.subscription,module.lz-na-prd.id]
     subscription_name = var.subscription_name
 }
 
-resource "azurerm_role_assignment" "it-na-prd-readers" {
-    scope = module.it-na-prd.id
-    role_definition_name = module.it-na-prd-readers.role_id
+resource "azurerm_role_assignment" "lz-na-prd-readers" {
+    scope = module.lz-na-prd.id
+    role_definition_name = module.lz-na-prd-readers.role_id
     principal_id = "4218f776-72f7-4a06-889a-07a65efe1f45"
 }
 
-module "it-na-prd-contributors" {
+module "lz-na-prd-contributors" {
     source = "./modules/rbac"
     name = "Az_Contributor"
-    description = "Grants full access to manage all resources in the ${module.it-na-prd.name} management group, but does not allow you to assign roles in Azure RBAC, manage assignments in Azure Blueprints, or share image galleries."
-    scope = module.it-na-prd.id
+    description = "Grants full access to manage all resources in the ${module.lz-na-prd.name} management group, but does not allow you to assign roles in Azure RBAC, manage assignments in Azure Blueprints, or share image galleries."
+    scope = module.lz-na-prd.id
     actions = ["*",]
     not_actions = [        
         "Microsoft.Authorization/*/Delete",
@@ -369,59 +369,59 @@ module "it-na-prd-contributors" {
         "Microsoft.Blueprint/blueprintAssignments/delete",
         "Microsoft.Compute/galleries/share/action"
         ]
-    assignable_scopes = [var.subscription,module.it-na-prd.id]
+    assignable_scopes = [var.subscription,module.lz-na-prd.id]
     subscription_name = var.subscription_name
 }
 
-resource "azurerm_role_assignment" "it-na-prd-contributors" {
-    scope = module.it-na-prd.id
-    role_definition_name = module.it-na-prd-contributors.role_id
+resource "azurerm_role_assignment" "lz-na-prd-contributors" {
+    scope = module.lz-na-prd.id
+    role_definition_name = module.lz-na-prd-contributors.role_id
     principal_id = "4218f776-72f7-4a06-889a-07a65efe1f45"
 }
 
-module "it-na-prd-owner" {
+module "lz-na-prd-owner" {
     source = "./modules/rbac"
     name = "Az_Owner"
-    description = "Grants full access to manage all ${module.it-na-prd.name} resources, including the ability to assign roles in Azure RBAC."
-    scope = module.it-na-prd.id
+    description = "Grants full access to manage all ${module.lz-na-prd.name} resources, including the ability to assign roles in Azure RBAC."
+    scope = module.lz-na-prd.id
     actions = ["*",]
     not_actions = []
-    assignable_scopes = [var.subscription,module.it-na-prd.id]
+    assignable_scopes = [var.subscription,module.lz-na-prd.id]
     subscription_name = var.subscription_name
 }
 
-resource "azurerm_role_assignment" "it-na-prd-owner" {
-    scope = module.it-na-prd.id
-    role_definition_name = module.it-na-prd-owner.role_id
+resource "azurerm_role_assignment" "lz-na-prd-owner" {
+    scope = module.lz-na-prd.id
+    role_definition_name = module.lz-na-prd-owner.role_id
     principal_id = "4218f776-72f7-4a06-889a-07a65efe1f45"
 }
 
-module "it-na-prd-access-admins" {
+module "lz-na-prd-access-admins" {
     source = "./modules/rbac"
     name = "Az_AccessAdmin"
-    description = "Lets you manage user access to Azure resources in the ${module.it-na-prd.name} management group."
-    scope = module.it-na-prd.id
+    description = "Lets you manage user access to Azure resources in the ${module.lz-na-prd.name} management group."
+    scope = module.lz-na-prd.id
     actions = [
         "*/read",
         "Microsoft.Authorization/*",
         "Microsoft.Support/*"
     ]
     not_actions = []
-    assignable_scopes = [var.subscription,module.it-na-prd.id]
+    assignable_scopes = [var.subscription,module.lz-na-prd.id]
     subscription_name = var.subscription_name
 }
 
-resource "azurerm_role_assignment" "it-na-prd-access-admins" {
-    scope = module.it-na-prd.id
-    role_definition_name = module.it-na-prd-access-admins.role_id
+resource "azurerm_role_assignment" "lz-na-prd-access-admins" {
+    scope = module.lz-na-prd.id
+    role_definition_name = module.lz-na-prd-access-admins.role_id
     principal_id = "4218f776-72f7-4a06-889a-07a65efe1f45"
 }
 
-module "it-na-prd-backup-operator" {
+module "lz-na-prd-backup-operator" {
     source = "./modules/rbac"
     name = "Az_BackupOperator"
-    description = "Lets you manage backup services, except removal of backup, vault creation and giving access to others in the ${module.it-na-prd.name} management group."
-    scope = module.it-na-prd.id
+    description = "Lets you manage backup services, except removal of backup, vault creation and giving access to others in the ${module.lz-na-prd.name} management group."
+    scope = module.lz-na-prd.id
     actions = [
         "Microsoft.Authorization/*/read",
         "Microsoft.Network/virtualNetworks/read",
@@ -505,21 +505,21 @@ module "it-na-prd-backup-operator" {
         # "Microsoft.DataProtection/providers/operations/read"
     ]
     not_actions = []
-    assignable_scopes = [var.subscription,module.it-na-prd.id]
+    assignable_scopes = [var.subscription,module.lz-na-prd.id]
     subscription_name = var.subscription_name
 }
 
-resource "azurerm_role_assignment" "it-na-prd-backup-operator" {
-    scope = module.it-na-prd.id
-    role_definition_name = module.it-na-prd-backup-operator.role_id
+resource "azurerm_role_assignment" "lz-na-prd-backup-operator" {
+    scope = module.lz-na-prd.id
+    role_definition_name = module.lz-na-prd-backup-operator.role_id
     principal_id = "4218f776-72f7-4a06-889a-07a65efe1f45"
 }
 
-module "it-na-prd-billing-reader" {
+module "lz-na-prd-billing-reader" {
     source = "./modules/rbac"
     name = "Az_BillingReader"
-    description = "Allows read access to billing data in the ${module.it-na-prd.name} management group."
-    scope = module.it-na-prd.id
+    description = "Allows read access to billing data in the ${module.lz-na-prd.name} management group."
+    scope = module.lz-na-prd.id
     actions = [
         "Microsoft.Authorization/*/read",
         "Microsoft.Billing/*/read",
@@ -530,21 +530,21 @@ module "it-na-prd-billing-reader" {
         "Microsoft.Support/*"
     ]
     not_actions = []
-    assignable_scopes = [var.subscription,module.it-na-prd.id]
+    assignable_scopes = [var.subscription,module.lz-na-prd.id]
     subscription_name = var.subscription_name
 }
 
-resource "azurerm_role_assignment" "it-na-prd-billing-reader" {
-    scope = module.it-na-prd.id
-    role_definition_name = module.it-na-prd-billing-reader.role_id
+resource "azurerm_role_assignment" "lz-na-prd-billing-reader" {
+    scope = module.lz-na-prd.id
+    role_definition_name = module.lz-na-prd-billing-reader.role_id
     principal_id = "4218f776-72f7-4a06-889a-07a65efe1f45"
 }
 
-module "it-na-prd-ops-sql-contributor" {
+module "lz-na-prd-ops-sql-contributor" {
     source = "./modules/rbac"
     name = "Az_OpsSQLContributor"
-    description = "Customized to allow SQL agent Push and SQL restore to VM which requires write to compute.virtualmachines.  Lets you manage SQL servers and databases, but not access to them, and not their security -related policies in the ${module.it-na-prd.name} management group."
-    scope = module.it-na-prd.id
+    description = "Customized to allow SQL agent Push and SQL restore to VM which requires write to compute.virtualmachines.  Lets you manage SQL servers and databases, but not access to them, and not their security -related policies in the ${module.lz-na-prd.name} management group."
+    scope = module.lz-na-prd.id
     actions = [
         "Microsoft.Authorization/*/read",
         "Microsoft.Insights/alertRules/*",
@@ -589,22 +589,22 @@ module "it-na-prd-ops-sql-contributor" {
         "Microsoft.Sql/servers/securityAlertPolicies/*",
         "Microsoft.Sql/servers/vulnerabilityAssessments/*"
     ]
-    assignable_scopes = [var.subscription,module.it-na-prd.id]
+    assignable_scopes = [var.subscription,module.lz-na-prd.id]
     subscription_name = var.subscription_name
 }
 
-resource "azurerm_role_assignment" "it-na-prd-ops-sql-contributor" {
-    scope = module.it-na-prd.id
-    role_definition_name = module.it-na-prd-ops-sql-contributor.role_id
+resource "azurerm_role_assignment" "lz-na-prd-ops-sql-contributor" {
+    scope = module.lz-na-prd.id
+    role_definition_name = module.lz-na-prd-ops-sql-contributor.role_id
     principal_id = "4218f776-72f7-4a06-889a-07a65efe1f45"
 }
 
 
-module "it-na-prd-VM-Admin" {
+module "lz-na-prd-VM-Admin" {
     source = "./modules/rbac"
     name = "Az_VMAdmin"
-    description = "Lets you admin virtual machines, with storage account in the ${module.it-na-prd.name} management group."
-    scope = module.it-na-prd.id
+    description = "Lets you admin virtual machines, with storage account in the ${module.lz-na-prd.name} management group."
+    scope = module.lz-na-prd.id
     actions = [
         "Microsoft.Authorization/*/read",
         "Microsoft.Compute/availabilitySets/*",
@@ -659,21 +659,21 @@ module "it-na-prd-VM-Admin" {
         "*/read"
     ]
     not_actions = []
-    assignable_scopes = [var.subscription,module.it-na-prd.id]
+    assignable_scopes = [var.subscription,module.lz-na-prd.id]
     subscription_name = var.subscription_name
 }
 
-resource "azurerm_role_assignment" "it-na-prd-VM-Admin" {
-    scope = module.it-na-prd.id
-    role_definition_name = module.it-na-prd-VM-Admin.role_id
+resource "azurerm_role_assignment" "lz-na-prd-VM-Admin" {
+    scope = module.lz-na-prd.id
+    role_definition_name = module.lz-na-prd-VM-Admin.role_id
     principal_id = "4218f776-72f7-4a06-889a-07a65efe1f45"
 }
 
-module "it-na-prd-VM-Operator" {
+module "lz-na-prd-VM-Operator" {
     source = "./modules/rbac"
     name = "Az_VMOperator"
-    description = "Custom Role to operate VMs in the ${module.it-na-prd.name} management group."
-    scope = module.it-na-prd.id
+    description = "Custom Role to operate VMs in the ${module.lz-na-prd.name} management group."
+    scope = module.lz-na-prd.id
     actions = [
         "Microsoft.Compute/*/read",
         "Microsoft.Network/*/read",
@@ -696,13 +696,13 @@ module "it-na-prd-VM-Operator" {
         "Microsoft.Storage/storageaccounts/regeneratekey/action"
     ]
     not_actions = []
-    assignable_scopes = [var.subscription,module.it-na-prd.id]
+    assignable_scopes = [var.subscription,module.lz-na-prd.id]
     subscription_name = var.subscription_name
 }
 
-resource "azurerm_role_assignment" "it-na-prd-VM-Operator" {
-    scope = module.it-na-prd.id
-    role_definition_name = module.it-na-prd-VM-Operator.role_id
+resource "azurerm_role_assignment" "lz-na-prd-VM-Operator" {
+    scope = module.lz-na-prd.id
+    role_definition_name = module.lz-na-prd-VM-Operator.role_id
     principal_id = "4218f776-72f7-4a06-889a-07a65efe1f45"
 }
 
@@ -712,15 +712,15 @@ module "Prod-readers" {
     source = "./modules/rbac"
     name = "Az_Reader"
     description = "View all resources in the production subscription, but does not allow you to make any changes."
-    scope = module.it-na-prd.id #this will need to be replaced with the Cummins Prod subscription information
+    scope = module.lz-na-prd.id #this will need to be replaced with the Cummins Prod subscription information
     actions = ["*/read",]
     not_actions = []
-    assignable_scopes = [var.subscription,module.it-na-prd.id]
+    assignable_scopes = [var.subscription,module.lz-na-prd.id]
     subscription_name = var.subscription_name
 }
 
 resource "azurerm_role_assignment" "Prod-readers" {
-    scope = module.it-na-prd.id #this will need to be replaced with the Cummins Prod subscription information
+    scope = module.lz-na-prd.id #this will need to be replaced with the Cummins Prod subscription information
     role_definition_name = module.Prod-readers.role_id
     principal_id = "4218f776-72f7-4a06-889a-07a65efe1f45"
 }
@@ -729,7 +729,7 @@ module "Prod-contributors" {
     source = "./modules/rbac"
     name = "Az_Contributor"
     description = "Grants full access to manage all resources in the production subscription, but does not allow you to assign roles in Azure RBAC, manage assignments in Azure Blueprints, or share image galleries."
-    scope = module.it-na-prd.id #this will need to be replaced with the Cummins Prod subscription information
+    scope = module.lz-na-prd.id #this will need to be replaced with the Cummins Prod subscription information
     actions = ["*",]
     not_actions = [        
         "Microsoft.Authorization/*/Delete",
@@ -739,12 +739,12 @@ module "Prod-contributors" {
         "Microsoft.Blueprint/blueprintAssignments/delete",
         "Microsoft.Compute/galleries/share/action"
         ]
-    assignable_scopes = [var.subscription,module.it-na-prd.id]
+    assignable_scopes = [var.subscription,module.lz-na-prd.id]
     subscription_name = var.subscription_name
 }
 
 resource "azurerm_role_assignment" "Prod-contributors" {
-    scope = module.it-na-prd.id #this will need to be replaced with the Cummins Prod subscription information
+    scope = module.lz-na-prd.id #this will need to be replaced with the Cummins Prod subscription information
     role_definition_name = module.Prod-contributors.role_id
     principal_id = "4218f776-72f7-4a06-889a-07a65efe1f45"
 }
@@ -753,15 +753,15 @@ module "Prod-owner" {
     source = "./modules/rbac"
     name = "Az_Owner"
     description = "Grants full access to manage all production-sub resources, including the ability to assign roles in Azure RBAC."
-    scope = module.it-na-prd.id #this will need to be replaced with the Cummins Prod subscription information
+    scope = module.lz-na-prd.id #this will need to be replaced with the Cummins Prod subscription information
     actions = ["*",]
     not_actions = []
-    assignable_scopes = [var.subscription,module.it-na-prd.id]
+    assignable_scopes = [var.subscription,module.lz-na-prd.id]
     subscription_name = var.subscription_name
 }
 
 resource "azurerm_role_assignment" "Prod-owner" {
-    scope = module.it-na-prd.id #this will need to be replaced with the Cummins Prod subscription information
+    scope = module.lz-na-prd.id #this will need to be replaced with the Cummins Prod subscription information
     role_definition_name = module.Prod-owner.role_id
     principal_id = "4218f776-72f7-4a06-889a-07a65efe1f45"
 }
@@ -770,19 +770,19 @@ module "Prod-access-admins" {
     source = "./modules/rbac"
     name = "Az_AccessAdmin"
     description = "Lets you manage user access to Azure resources in the production subscription."
-    scope = module.it-na-prd.id #this will need to be replaced with the Cummins Prod subscription information
+    scope = module.lz-na-prd.id #this will need to be replaced with the Cummins Prod subscription information
     actions = [
         "*/read",
         "Microsoft.Authorization/*",
         "Microsoft.Support/*"
     ]
     not_actions = []
-    assignable_scopes = [var.subscription,module.it-na-prd.id]
+    assignable_scopes = [var.subscription,module.lz-na-prd.id]
     subscription_name = var.subscription_name
 }
 
 resource "azurerm_role_assignment" "Prod-access-admins" {
-    scope = module.it-na-prd.id #this will need to be replaced with the Cummins Prod subscription information
+    scope = module.lz-na-prd.id #this will need to be replaced with the Cummins Prod subscription information
     role_definition_name = module.Prod-access-admins.role_id
     principal_id = "4218f776-72f7-4a06-889a-07a65efe1f45"
 }

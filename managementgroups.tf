@@ -6,67 +6,67 @@ module "mg_test_management_group" {
   display_name = "mg-test"
 }
 
-module "it-root" {
+module "lz-root" {
   source = "./modules/management-group"
 
-  name         = "it-root"
-  display_name = "it-root"
+  name         = "lz-root"
+  display_name = "lz-root"
 }
 
-module "it-apac" {
+module "lz-apac" {
   source = "./modules/management-group"
 
-  name         = "it-apac"
-  display_name = "it-apac"
+  name         = "lz-apac"
+  display_name = "lz-apac"
 }
 
-module "it-na-dev" {
+module "lz-na-dev" {
   source = "./modules/management-group"
 
-  name         = "it-na-dev"
-  display_name = "it-na-dev"
+  name         = "lz-na-dev"
+  display_name = "lz-na-dev"
 }
 
-module "it-na-lab" {
+module "lz-na-lab" {
   source = "./modules/management-group"
 
-  name         = "it-na-lab"
-  display_name = "it-na-lab"
+  name         = "lz-na-lab"
+  display_name = "lz-na-lab"
 }
 
-module "it-na-platform" {
+module "lz-na-platform" {
   source = "./modules/management-group"
 
-  name         = "it-na-platform"
-  display_name = "it-na-platform"
+  name         = "lz-na-platform"
+  display_name = "lz-na-platform"
 }
 
-module "it-na" {
+module "lz-na" {
   source = "./modules/management-group"
 
-  name         = "it-na"
-  display_name = "it-na"
+  name         = "lz-na"
+  display_name = "lz-na"
 }
 
-module "it-na-prd-pci" {
+module "lz-na-prd-pci" {
   source = "./modules/management-group"
 
-  name         = "it-na-prd-pci"
-  display_name = "it-na-prd-pci"
+  name         = "lz-na-prd-pci"
+  display_name = "lz-na-prd-pci"
 }
 
-module "it-na-prd" {
+module "lz-na-prd" {
   source = "./modules/management-group"
 
-  name         = "it-na-prd"
-  display_name = "it-na-prd"
+  name         = "lz-na-prd"
+  display_name = "lz-na-prd"
 }
 
-module "it-na-stg" {
+module "lz-na-stg" {
   source = "./modules/management-group"
 
-  name         = "it-na-stg"
-  display_name = "it-na-stg"
+  name         = "lz-na-stg"
+  display_name = "lz-na-stg"
 }
 
 

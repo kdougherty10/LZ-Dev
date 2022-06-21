@@ -1,14 +1,14 @@
 #IT Root Policies
-module "it-root-policy-definitions" {
-  source       = "./modules/policy/it-root-policy-definitions"
-  mgmt-grp-def = module.it-root.id # location where the policies are stored
+module "lz-root-policy-definitions" {
+  source       = "./modules/policy/lz-root-policy-definitions"
+  mgmt-grp-def = module.lz-root.id # location where the policies are stored
 }
 
-module "it-root-policy_assignments" {
+module "lz-root-policy_assignments" {
   # policies being assigned
 
-  source       = "./modules/policy/it-root-policy-assignments"
-  mgmt-grp-def = module.it-root.id # location where the policies are stored
+  source       = "./modules/policy/lz-root-policy-assignments"
+  mgmt-grp-def = module.lz-root.id # location where the policies are stored
 
   #policy IDs
 
@@ -17,197 +17,197 @@ module "it-root-policy_assignments" {
 
 module "policyset_definitions" {
   source = "./modules/policy/policyset-definitions"
-  mgmt-grp-def = module.it-root.id # location where the policies are stored
+  mgmt-grp-def = module.lz-root.id # location where the policies are stored
   custom_prefix = "CMS"
 
  custom_policies_tag_governance = [
    {
-      policyID = module.it-root-policy-definitions.it-root-required-tag_policy_id[0]
+      policyID = module.lz-root-policy-definitions.lz-root-required-tag_policy_id[0]
     },
         {
-      policyID = module.it-root-policy-definitions.it-root-required-tag_policy_id[1]
+      policyID = module.lz-root-policy-definitions.lz-root-required-tag_policy_id[1]
     },
         {
-      policyID = module.it-root-policy-definitions.it-root-required-tag_policy_id[2]
+      policyID = module.lz-root-policy-definitions.lz-root-required-tag_policy_id[2]
     },
         {
-      policyID = module.it-root-policy-definitions.it-root-required-tag_policy_id[3]
+      policyID = module.lz-root-policy-definitions.lz-root-required-tag_policy_id[3]
     },
         {
-      policyID = module.it-root-policy-definitions.it-root-required-tag_policy_id[4]
+      policyID = module.lz-root-policy-definitions.lz-root-required-tag_policy_id[4]
     },
         {
-      policyID = module.it-root-policy-definitions.it-root-required-tag_policy_id[5]
+      policyID = module.lz-root-policy-definitions.lz-root-required-tag_policy_id[5]
     },
         {
-      policyID = module.it-root-policy-definitions.it-root-required-tag_policy_id[6]
+      policyID = module.lz-root-policy-definitions.lz-root-required-tag_policy_id[6]
     },
         {
-      policyID = module.it-root-policy-definitions.it-root-required-tag_policy_id[7]
+      policyID = module.lz-root-policy-definitions.lz-root-required-tag_policy_id[7]
     },
         {
-      policyID = module.it-root-policy-definitions.it-root-required-tag_policy_id[8]
+      policyID = module.lz-root-policy-definitions.lz-root-required-tag_policy_id[8]
     },
         {
-      policyID = module.it-root-policy-definitions.it-root-required-tag_policy_id[9]
+      policyID = module.lz-root-policy-definitions.lz-root-required-tag_policy_id[9]
     },
         {
-      policyID = module.it-root-policy-definitions.it-root-required-tag_policy_id[10]
+      policyID = module.lz-root-policy-definitions.lz-root-required-tag_policy_id[10]
     },
  ]
 }
 
-#IT-NA Policies
+#lz-NA Policies
 
-module "it-na-policy-definitions" {
-  source       = "./modules/policy/it-na-policy-definitions"
-  mgmt-grp-def = module.it-na.id # location where the policies are stored
+module "lz-na-policy-definitions" {
+  source       = "./modules/policy/lz-na-policy-definitions"
+  mgmt-grp-def = module.lz-na.id # location where the policies are stored
 }
 
-module "it-na-policy_assignments" {
+module "lz-na-policy_assignments" {
   # policies being assigned
 
-  source       = "./modules/policy/it-na-policy-assignments"
-  mgmt-grp-def = module.it-na.id # location where the policies are stored
+  source       = "./modules/policy/lz-na-policy-assignments"
+  mgmt-grp-def = module.lz-na.id # location where the policies are stored
 
   
-  it-na-SA_KeyNotExpired_id             = module.it-na-policy-definitions.it-na-SA_KeyNotExpired_id
-  it-na-SA_MSAccess_id                  = module.it-na-policy-definitions.it-na-SA_MSAccess_id
-  it-na-SA_pubAccess_id                 = module.it-na-policy-definitions.it-na-SA_pubAccess_id
-  it-na-SA_SecureTransfer_id            = module.it-na-policy-definitions.it-na-SA_SecureTransfer_id
-  it-na-SQL_AuditEnabled_id             = module.it-na-policy-definitions.it-na-SQL_AuditEnabled_id
-  it-na-SQL_TransparentData_id          = module.it-na-policy-definitions.it-na-SQL_TransparentData_id
-  it-na-vm_sku_policy_id                = module.it-na-policy-definitions.it-na-vm_sku_policy_id
-  it-na-VMAudit_ManagedDisk_id          = module.it-na-policy-definitions.it-na-VMAudit_ManagedDisk_id
-  it-na-required-tag_policy_id	        = module.it-na-policy-definitions.it-na-required-tag_policy_id[0]
-  it-na-SA_KeyAccess_id                 = module.it-na-policy-definitions.it-na-SA_KeyAccess_id
-  it-na-allowed_location_policy_id      = module.it-na-policy-definitions.it-na-allowed_location_policy_id
-  it-na-AZ_SecurityBenchmark_id         = "/providers/Microsoft.Authorization/policySetDefinitions/1f3afdf9-d0c9-4c3d-847f-89da613e70a8"	
+  lz-na-SA_KeyNotExpired_id             = module.lz-na-policy-definitions.lz-na-SA_KeyNotExpired_id
+  lz-na-SA_MSAccess_id                  = module.lz-na-policy-definitions.lz-na-SA_MSAccess_id
+  lz-na-SA_pubAccess_id                 = module.lz-na-policy-definitions.lz-na-SA_pubAccess_id
+  lz-na-SA_SecureTransfer_id            = module.lz-na-policy-definitions.lz-na-SA_SecureTransfer_id
+  lz-na-SQL_AuditEnabled_id             = module.lz-na-policy-definitions.lz-na-SQL_AuditEnabled_id
+  lz-na-SQL_TransparentData_id          = module.lz-na-policy-definitions.lz-na-SQL_TransparentData_id
+  lz-na-vm_sku_policy_id                = module.lz-na-policy-definitions.lz-na-vm_sku_policy_id
+  lz-na-VMAudit_ManagedDisk_id          = module.lz-na-policy-definitions.lz-na-VMAudit_ManagedDisk_id
+  lz-na-required-tag_policy_id	        = module.lz-na-policy-definitions.lz-na-required-tag_policy_id[0]
+  lz-na-SA_KeyAccess_id                 = module.lz-na-policy-definitions.lz-na-SA_KeyAccess_id
+  lz-na-allowed_location_policy_id      = module.lz-na-policy-definitions.lz-na-allowed_location_policy_id
+  lz-na-AZ_SecurityBenchmark_id         = "/providers/Microsoft.Authorization/policySetDefinitions/1f3afdf9-d0c9-4c3d-847f-89da613e70a8"	
 
 }
 
-#IT-APAC Policies
+#lz-APAC Policies
 
-module "it-apac-policy-definitions" {
-  source       = "./modules/policy/it-apac-policy-definitions"
-  mgmt-grp-def = module.it-apac.id # location where the policies are stored
+module "lz-apac-policy-definitions" {
+  source       = "./modules/policy/lz-apac-policy-definitions"
+  mgmt-grp-def = module.lz-apac.id # location where the policies are stored
 }
 
-module "it-apac-policy_assignments" {
+module "lz-apac-policy_assignments" {
   # policies being assigned
 
-  source       = "./modules/policy/it-apac-policy-assignments"
-  mgmt-grp-def = module.it-apac.id # location where the policies are stored
+  source       = "./modules/policy/lz-apac-policy-assignments"
+  mgmt-grp-def = module.lz-apac.id # location where the policies are stored
 
-  it-apac-required-tag_policy_id = module.it-apac-policy-definitions.it-apac-required-tag_policy_id[0]
+  lz-apac-required-tag_policy_id = module.lz-apac-policy-definitions.lz-apac-required-tag_policy_id[0]
 
 }
 
-#IT-NA-PRD Policies
+#lz-NA-PRD Policies
 
-module "it-na-prd-policy-definitions" {
-  source       = "./modules/policy/it-na-prd-policy-definitions"
-  mgmt-grp-def = module.it-na-prd.id # location where the policies are stored
+module "lz-na-prd-policy-definitions" {
+  source       = "./modules/policy/lz-na-prd-policy-definitions"
+  mgmt-grp-def = module.lz-na-prd.id # location where the policies are stored
 }
 
-module "it-na-prd-policy_assignments" {
+module "lz-na-prd-policy_assignments" {
   # policies being assigned
 
-  source       = "./modules/policy/it-na-prd-policy-assignments"
-  mgmt-grp-def = module.it-na-prd.id # location where the policies are stored
+  source       = "./modules/policy/lz-na-prd-policy-assignments"
+  mgmt-grp-def = module.lz-na-prd.id # location where the policies are stored
 
-  it-na-prd-required-tag_policy_id = module.it-na-prd-policy-definitions.it-na-prd-required-tag_policy_id[0]
-  it-na-prd_AZ_ISO_policy_id            = "/providers/Microsoft.Authorization/policySetDefinitions/89c6cddc-1c73-4ac1-b19c-54d1a15a42f2"
-  it-na-prd_AZ_NIST_800-53_policy_id    = "/providers/Microsoft.Authorization/policySetDefinitions/cf25b9c1-bd23-4eb6-bd2c-f4f3ac644a5f"
-  it-na-prd_AZ_ISO_policy               = "/providers/Microsoft.Authorization/policySetDefinitions/89c6cddc-1c73-4ac1-b19c-54d1a15a42f2"
-  it-na-prd_sa_sku_policy_id            = module.it-na-prd-policy-definitions.it-na-prd_sa_sku_policy_id
+  lz-na-prd-required-tag_policy_id = module.lz-na-prd-policy-definitions.lz-na-prd-required-tag_policy_id[0]
+  lz-na-prd_AZ_ISO_policy_id            = "/providers/Microsoft.Authorization/policySetDefinitions/89c6cddc-1c73-4ac1-b19c-54d1a15a42f2"
+  lz-na-prd_AZ_NIST_800-53_policy_id    = "/providers/Microsoft.Authorization/policySetDefinitions/cf25b9c1-bd23-4eb6-bd2c-f4f3ac644a5f"
+  lz-na-prd_AZ_ISO_policy               = "/providers/Microsoft.Authorization/policySetDefinitions/89c6cddc-1c73-4ac1-b19c-54d1a15a42f2"
+  lz-na-prd_sa_sku_policy_id            = module.lz-na-prd-policy-definitions.lz-na-prd_sa_sku_policy_id
 
 }
 
-#IT-NA-PLATFORM Policies
+#lz-NA-PLATFORM Policies
 
-module "it-na-platform-policy-definitions" {
-  source       = "./modules/policy/it-na-platform-policy-definitions"
-  mgmt-grp-def = module.it-na-platform.id # location where the policies are stored
+module "lz-na-platform-policy-definitions" {
+  source       = "./modules/policy/lz-na-platform-policy-definitions"
+  mgmt-grp-def = module.lz-na-platform.id # location where the policies are stored
 }
 
-module "it-na-platform-policy_assignments" {
+module "lz-na-platform-policy_assignments" {
   # policies being assigned
 
-  source       = "./modules/policy/it-na-platform-policy-assignments"
-  mgmt-grp-def = module.it-na-platform.id # location where the policies are stored
+  source       = "./modules/policy/lz-na-platform-policy-assignments"
+  mgmt-grp-def = module.lz-na-platform.id # location where the policies are stored
 
-  it-na-platform-AZ_ISO_policy_id       = "/providers/Microsoft.Authorization/policySetDefinitions/89c6cddc-1c73-4ac1-b19c-54d1a15a42f2"
-  it-na-platform-AZ_NIST_800-53_policy_id  = "/providers/Microsoft.Authorization/policySetDefinitions/cf25b9c1-bd23-4eb6-bd2c-f4f3ac644a5f"
-  it-na-platform-required-tag_policy_id = module.it-na-platform-policy-definitions.it-na-platform-required-tag_policy_id[0]
+  lz-na-platform-AZ_ISO_policy_id       = "/providers/Microsoft.Authorization/policySetDefinitions/89c6cddc-1c73-4ac1-b19c-54d1a15a42f2"
+  lz-na-platform-AZ_NIST_800-53_policy_id  = "/providers/Microsoft.Authorization/policySetDefinitions/cf25b9c1-bd23-4eb6-bd2c-f4f3ac644a5f"
+  lz-na-platform-required-tag_policy_id = module.lz-na-platform-policy-definitions.lz-na-platform-required-tag_policy_id[0]
 
 }
 
-#IT-NA-DEV Policies
+#lz-NA-DEV Policies
 
-module "it-na-dev-policy-definitions" {
-  source       = "./modules/policy/it-na-dev-policy-definitions"
-  mgmt-grp-def = module.it-na-dev.id # location where the policies are stored
+module "lz-na-dev-policy-definitions" {
+  source       = "./modules/policy/lz-na-dev-policy-definitions"
+  mgmt-grp-def = module.lz-na-dev.id # location where the policies are stored
 }
 
-module "it-na-dev-policy_assignments" {
+module "lz-na-dev-policy_assignments" {
   # policies being assigned
 
-  source       = "./modules/policy/it-na-dev-policy-assignments"
-  mgmt-grp-def = module.it-na-dev.id # location where the policies are stored
+  source       = "./modules/policy/lz-na-dev-policy-assignments"
+  mgmt-grp-def = module.lz-na-dev.id # location where the policies are stored
 
-  it-na-dev-required-tag_policy_id = module.it-na-dev-policy-definitions.it-na-dev-required-tag_policy_id[0]
+  lz-na-dev-required-tag_policy_id = module.lz-na-dev-policy-definitions.lz-na-dev-required-tag_policy_id[0]
 
 }
 
-#IT-NA-LAB Policies
+#lz-NA-LAB Policies
 
-module "it-na-lab-policy-definitions" {
-  source       = "./modules/policy/it-na-lab-policy-definitions"
-  mgmt-grp-def = module.it-na-lab.id # location where the policies are stored
+module "lz-na-lab-policy-definitions" {
+  source       = "./modules/policy/lz-na-lab-policy-definitions"
+  mgmt-grp-def = module.lz-na-lab.id # location where the policies are stored
 }
 
-module "it-na-lab-policy_assignments" {
+module "lz-na-lab-policy_assignments" {
   # policies being assigned
 
-  source       = "./modules/policy/it-na-lab-policy-assignments"
-  mgmt-grp-def = module.it-na-lab.id # location where the policies are stored
+  source       = "./modules/policy/lz-na-lab-policy-assignments"
+  mgmt-grp-def = module.lz-na-lab.id # location where the policies are stored
 
-  it-na-dev-required-lab_policy_id = module.it-na-lab-policy-definitions.it-na-dev-required-lab_policy_id[0]
+  lz-na-dev-required-lab_policy_id = module.lz-na-lab-policy-definitions.lz-na-dev-required-lab_policy_id[0]
 
 }
 
-#IT-NA-PRD-PCI Policies
+#lz-NA-PRD-PCI Policies
 
-module "it-na-prd-pci-policy-definitions" {
-  source       = "./modules/policy/it-na-prd-pci-policy-definitions"
-  mgmt-grp-def = module.it-na-prd-pci.id # location where the policies are stored
+module "lz-na-prd-pci-policy-definitions" {
+  source       = "./modules/policy/lz-na-prd-pci-policy-definitions"
+  mgmt-grp-def = module.lz-na-prd-pci.id # location where the policies are stored
 }
 
-module "it-na-prd-pci-policy-assignments" {
+module "lz-na-prd-pci-policy-assignments" {
   # policies being assigned
 
-  source       = "./modules/policy/it-na-prd-pci-policy-assignments"
-  mgmt-grp-def = module.it-na-prd-pci.id # location where the policies are stored
+  source       = "./modules/policy/lz-na-prd-pci-policy-assignments"
+  mgmt-grp-def = module.lz-na-prd-pci.id # location where the policies are stored
 
-  it-na-prd-pci-required-tag_policy_id = module.it-na-prd-pci-policy-definitions.it-na-prd-pci-required-tag_policy_id[0]
-  it-na-prd-pci_AZ_PCI_id               = "/providers/Microsoft.Authorization/policySetDefinitions/496eeda9-8f2f-4d5e-8dfd-204f0a92ed41"
+  lz-na-prd-pci-required-tag_policy_id = module.lz-na-prd-pci-policy-definitions.lz-na-prd-pci-required-tag_policy_id[0]
+  lz-na-prd-pci_AZ_PCI_id               = "/providers/Microsoft.Authorization/policySetDefinitions/496eeda9-8f2f-4d5e-8dfd-204f0a92ed41"
 }
 
-#IT-NA-STG Policies
+#lz-NA-STG Policies
 
-module "it-na-stg-policy-definitions" {
-  source       = "./modules/policy/it-na-stg-policy-definitions"
-  mgmt-grp-def = module.it-na-stg.id # location where the policies are stored
+module "lz-na-stg-policy-definitions" {
+  source       = "./modules/policy/lz-na-stg-policy-definitions"
+  mgmt-grp-def = module.lz-na-stg.id # location where the policies are stored
 }
 
-module "it-na-stg-policy_assignments" {
+module "lz-na-stg-policy_assignments" {
   # policies being assigned
 
-  source       = "./modules/policy/it-na-stg-policy-assignments"
-  mgmt-grp-def = module.it-na-stg.id # location where the policies are stored
+  source       = "./modules/policy/lz-na-stg-policy-assignments"
+  mgmt-grp-def = module.lz-na-stg.id # location where the policies are stored
 
-  it-na-stg-required-tag_policy_id = module.it-na-stg-policy-definitions.it-na-stg-required-tag_policy_id[0]
+  lz-na-stg-required-tag_policy_id = module.lz-na-stg-policy-definitions.lz-na-stg-required-tag_policy_id[0]
 
 }
 
@@ -217,7 +217,7 @@ module "it-na-stg-policy_assignments" {
 /*
 resource "azurerm_subscription_policy_assignment" "sub-policy" {
   name                 = "policy1"
-  policy_definition_id = module.policy-definitions.it-na-SA_KeyAccess_id
+  policy_definition_id = module.policy-definitions.lz-na-SA_KeyAccess_id
   subscription_id      = module.sub_deployment.subscription_id
 }
 */
