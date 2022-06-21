@@ -1,7 +1,7 @@
 #lz-Root RBAC Roles
 module "lz-root-readers" {
     source = "./modules/rbac"
-    name = "Az_Reader"
+    name = "Az_Reader-${module.lz-root.name}"
     description = "View all resources in the ${module.lz-root.name} management group, but does not allow you to make any changes."
     scope = module.lz-root.id
     actions = ["*/read",]
@@ -18,7 +18,7 @@ resource "azurerm_role_assignment" "lz-root-readers" {
 
 module "lz-root-contributors" {
     source = "./modules/rbac"
-    name = "Az_Contributor"
+    name = "Az_Contributor-${module.lz-root.name}"
     description = "Grants full access to manage all resources in the ${module.lz-root.name} management group, but does not allow you to assign roles in Azure RBAC, manage assignments in Azure Blueprints, or share image galleries."
     scope = module.lz-root.id
     actions = ["*",]
@@ -42,7 +42,7 @@ resource "azurerm_role_assignment" "lz-root-contributors" {
 
 module "lz-root-cmcontributor" {
     source = "./modules/rbac"
-    name = "Az_CostManagementContributor"
+    name = "Az_CostManagementContributor-${module.lz-root.name}"
     description = "Can view costs and manage cost configuration (e.g. budgets, exports) in ${module.lz-root.name}."
     scope = module.lz-root.id
     actions = [        
@@ -70,7 +70,7 @@ resource "azurerm_role_assignment" "lz-root-cmcontributor" {
 
 module "lz-root-lacontributor" {
     source = "./modules/rbac"
-    name = "Az_LogAnalyticsContributor"
+    name = "Az_LogAnalyticsContributor-${module.lz-root.name}"
     description = "Log Analytics Contributor can read all monitoring data and edit monitoring settings. Editing monitoring settings includes adding the VM extension to VMs; reading storage account keys to be able to configure collection of logs from Azure Storage; adding solutions; and configuring Azure diagnostics on all Azure resources in the ${module.lz-root.name} management group."
     scope = module.lz-root.id
     actions = [
@@ -101,7 +101,7 @@ resource "azurerm_role_assignment" "lz-root-lacontributor" {
 
 module "lz-root-owner" {
     source = "./modules/rbac"
-    name = "Az_Owner"
+    name = "Az_Owner-${module.lz-root.name}"
     description = "Grants full access to manage all ${module.lz-root.name} resources, including the ability to assign roles in Azure RBAC."
     scope = module.lz-root.id
     actions = ["*",]
@@ -118,7 +118,7 @@ resource "azurerm_role_assignment" "lz-root-owner" {
 
 module "lz-root-sqldb-contributor" {
     source = "./modules/rbac"
-    name = "Az_SQLDatabaseContributor"
+    name = "Az_SQLDatabaseContributor-${module.lz-root.name}"
     description = "Lets you manage ${module.lz-root.name} management group SQL databases, but not access to them. Also, you can't manage their security-related policies or their parent SQL servers."
     scope = module.lz-root.id
     actions = [
@@ -172,7 +172,7 @@ resource "azurerm_role_assignment" "lz-root-sqldb-contributor" {
 
 module "lz-root-srcontributors" {
     source = "./modules/rbac"
-    name = "Az_SupportRequestContributor"
+    name = "Az_SupportRequestContributor-${module.lz-root.name}"
     description = "Lets you create and manage Support requests in the ${module.lz-root.name} management group."
     scope = module.lz-root.id
     actions = [
@@ -193,7 +193,7 @@ resource "azurerm_role_assignment" "lz-root-srcontributors" {
 
 module "lz-root-access-admins" {
     source = "./modules/rbac"
-    name = "Az_AccessAdmins"
+    name = "Az_AccessAdmins-${module.lz-root.name}"
     description = "Lets you manage user access to Azure resources in the ${module.lz-root.name} management group."
     scope = module.lz-root.id
     actions = [
@@ -214,7 +214,7 @@ resource "azurerm_role_assignment" "lz-root-access-admins" {
 
 module "lz-root-unix-operators" {
     source = "./modules/rbac"
-    name = "Az_UnixVMOperator"
+    name = "Az_UnixVMOperator-${module.lz-root.name}"
     description = "Custom rule to operate VMs in the ${module.lz-root.name} management group."
     scope = module.lz-root.id
     actions = [
@@ -253,7 +253,7 @@ resource "azurerm_role_assignment" "lz-root-unix-operators" {
 
 module "lz-root-windows-operators" {
     source = "./modules/rbac"
-    name = "Az_WindowsVMOperator"
+    name = "Az_WindowsVMOperator-${module.lz-root.name}"
     description = "Custom rule to operate VMs in the ${module.lz-root.name} management group."
     scope = module.lz-root.id
     actions = [
@@ -290,7 +290,7 @@ resource "azurerm_role_assignment" "lz-root-windows-operators" {
 
 module "lz-root-prismacloudfunction" {
     source = "./modules/rbac"
-    name = "Az_PrismaCloudFunctionReadOnly"
+    name = "Az_PrismaCloudFunctionReadOnly-${module.lz-root.name}"
     description = "Az_Prisma-Cloud-Function-Read-Only ${module.lz-root.name} management group."
     scope = module.lz-root.id
     actions = [
@@ -314,7 +314,7 @@ resource "azurerm_role_assignment" "lz-root-prismacloudfunction" {
 
 module "lz-root-prismacloudreadonly" {
     source = "./modules/rbac"
-    name = "Az_PrismaCloudReadonly"
+    name = "Az_PrismaCloudReadonly-${module.lz-root.name}"
     description = "Az_Prisma-Cloud-Read-Only ${module.lz-root.name} management group."
     scope = module.lz-root.id
     actions = [
@@ -340,7 +340,7 @@ resource "azurerm_role_assignment" "lz-root-prismacloudreadonly" {
 
 module "lz-na-prd-readers" {
     source = "./modules/rbac"
-    name = "Az_Reader"
+    name = "Az_Reader-${module.lz-na-prd.name}"
     description = "View all resources in the ${module.lz-na-prd.name} management group, but does not allow you to make any changes."
     scope = module.lz-na-prd.id
     actions = ["*/read",]
@@ -357,7 +357,7 @@ resource "azurerm_role_assignment" "lz-na-prd-readers" {
 
 module "lz-na-prd-contributors" {
     source = "./modules/rbac"
-    name = "Az_Contributor"
+    name = "Az_Contributor-${module.lz-na-prd.name}"
     description = "Grants full access to manage all resources in the ${module.lz-na-prd.name} management group, but does not allow you to assign roles in Azure RBAC, manage assignments in Azure Blueprints, or share image galleries."
     scope = module.lz-na-prd.id
     actions = ["*",]
@@ -381,7 +381,7 @@ resource "azurerm_role_assignment" "lz-na-prd-contributors" {
 
 module "lz-na-prd-owner" {
     source = "./modules/rbac"
-    name = "Az_Owner"
+    name = "Az_Owner-${module.lz-na-prd.name}"
     description = "Grants full access to manage all ${module.lz-na-prd.name} resources, including the ability to assign roles in Azure RBAC."
     scope = module.lz-na-prd.id
     actions = ["*",]
@@ -398,7 +398,7 @@ resource "azurerm_role_assignment" "lz-na-prd-owner" {
 
 module "lz-na-prd-access-admins" {
     source = "./modules/rbac"
-    name = "Az_AccessAdmin"
+    name = "Az_AccessAdmin-${module.lz-na-prd.name}"
     description = "Lets you manage user access to Azure resources in the ${module.lz-na-prd.name} management group."
     scope = module.lz-na-prd.id
     actions = [
@@ -419,7 +419,7 @@ resource "azurerm_role_assignment" "lz-na-prd-access-admins" {
 
 module "lz-na-prd-backup-operator" {
     source = "./modules/rbac"
-    name = "Az_BackupOperator"
+    name = "Az_BackupOperator-${module.lz-na-prd.name}"
     description = "Lets you manage backup services, except removal of backup, vault creation and giving access to others in the ${module.lz-na-prd.name} management group."
     scope = module.lz-na-prd.id
     actions = [
@@ -517,7 +517,7 @@ resource "azurerm_role_assignment" "lz-na-prd-backup-operator" {
 
 module "lz-na-prd-billing-reader" {
     source = "./modules/rbac"
-    name = "Az_BillingReader"
+    name = "Az_BillingReader-${module.lz-na-prd.name}"
     description = "Allows read access to billing data in the ${module.lz-na-prd.name} management group."
     scope = module.lz-na-prd.id
     actions = [
@@ -542,7 +542,7 @@ resource "azurerm_role_assignment" "lz-na-prd-billing-reader" {
 
 module "lz-na-prd-ops-sql-contributor" {
     source = "./modules/rbac"
-    name = "Az_OpsSQLContributor"
+    name = "Az_OpsSQLContributor-${module.lz-na-prd.name}"
     description = "Customized to allow SQL agent Push and SQL restore to VM which requires write to compute.virtualmachines.  Lets you manage SQL servers and databases, but not access to them, and not their security -related policies in the ${module.lz-na-prd.name} management group."
     scope = module.lz-na-prd.id
     actions = [
@@ -602,7 +602,7 @@ resource "azurerm_role_assignment" "lz-na-prd-ops-sql-contributor" {
 
 module "lz-na-prd-VM-Admin" {
     source = "./modules/rbac"
-    name = "Az_VMAdmin"
+    name = "Az_VMAdmin-${module.lz-na-prd.name}"
     description = "Lets you admin virtual machines, with storage account in the ${module.lz-na-prd.name} management group."
     scope = module.lz-na-prd.id
     actions = [
@@ -671,7 +671,7 @@ resource "azurerm_role_assignment" "lz-na-prd-VM-Admin" {
 
 module "lz-na-prd-VM-Operator" {
     source = "./modules/rbac"
-    name = "Az_VMOperator"
+    name = "Az_VMOperator-${module.lz-na-prd.name}"
     description = "Custom Role to operate VMs in the ${module.lz-na-prd.name} management group."
     scope = module.lz-na-prd.id
     actions = [
