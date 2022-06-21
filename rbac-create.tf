@@ -1,7 +1,7 @@
 #IT-Root RBAC Roles
 module "it-root-readers" {
     source = "./modules/rbac"
-    name = "reader-${module.it-root.name}"
+    name = "Az_Reader"
     description = "View all resources in the ${module.it-root.name} management group, but does not allow you to make any changes."
     scope = module.it-root.id
     actions = ["*/read",]
@@ -18,7 +18,7 @@ resource "azurerm_role_assignment" "it-root-readers" {
 
 module "it-root-contributors" {
     source = "./modules/rbac"
-    name = "contributor-${module.it-root.name}"
+    name = "Az_Contributor"
     description = "Grants full access to manage all resources in the ${module.it-root.name} management group, but does not allow you to assign roles in Azure RBAC, manage assignments in Azure Blueprints, or share image galleries."
     scope = module.it-root.id
     actions = ["*",]
@@ -42,7 +42,7 @@ resource "azurerm_role_assignment" "it-root-contributors" {
 
 module "it-root-cmcontributor" {
     source = "./modules/rbac"
-    name = "costmanagement-${module.it-root.name}"
+    name = "Az_CostManagementContributor"
     description = "Can view costs and manage cost configuration (e.g. budgets, exports) in ${module.it-root.name}."
     scope = module.it-root.id
     actions = [        
@@ -70,7 +70,7 @@ resource "azurerm_role_assignment" "it-root-cmcontributor" {
 
 module "it-root-lacontributor" {
     source = "./modules/rbac"
-    name = "LA-${module.it-root.name}"
+    name = "Az_LogAnalyticsContributor"
     description = "Log Analytics Contributor can read all monitoring data and edit monitoring settings. Editing monitoring settings includes adding the VM extension to VMs; reading storage account keys to be able to configure collection of logs from Azure Storage; adding solutions; and configuring Azure diagnostics on all Azure resources in the ${module.it-root.name} management group."
     scope = module.it-root.id
     actions = [
@@ -101,7 +101,7 @@ resource "azurerm_role_assignment" "it-root-lacontributor" {
 
 module "it-root-owner" {
     source = "./modules/rbac"
-    name = "owner-${module.it-root.name}"
+    name = "Az_Owner"
     description = "Grants full access to manage all ${module.it-root.name} resources, including the ability to assign roles in Azure RBAC."
     scope = module.it-root.id
     actions = ["*",]
@@ -118,7 +118,7 @@ resource "azurerm_role_assignment" "it-root-owner" {
 
 module "it-root-sqldb-contributor" {
     source = "./modules/rbac"
-    name = "dbcontributor-${module.it-root.name}"
+    name = "Az_SQLDatabaseContributor"
     description = "Lets you manage ${module.it-root.name} management group SQL databases, but not access to them. Also, you can't manage their security-related policies or their parent SQL servers."
     scope = module.it-root.id
     actions = [
@@ -172,7 +172,7 @@ resource "azurerm_role_assignment" "it-root-sqldb-contributor" {
 
 module "it-root-srcontributors" {
     source = "./modules/rbac"
-    name = "SRcontribute-${module.it-root.name}"
+    name = "Az_SupportRequestContributor"
     description = "Lets you create and manage Support requests in the ${module.it-root.name} management group."
     scope = module.it-root.id
     actions = [
@@ -193,7 +193,7 @@ resource "azurerm_role_assignment" "it-root-srcontributors" {
 
 module "it-root-access-admins" {
     source = "./modules/rbac"
-    name = "access-${module.it-root.name}"
+    name = "Az_AccessAdmins"
     description = "Lets you manage user access to Azure resources in the ${module.it-root.name} management group."
     scope = module.it-root.id
     actions = [
@@ -214,7 +214,7 @@ resource "azurerm_role_assignment" "it-root-access-admins" {
 
 module "it-root-unix-operators" {
     source = "./modules/rbac"
-    name = "unixOperator-${module.it-root.name}"
+    name = "Az_UnixVMOperator"
     description = "Custom rule to operate VMs in the ${module.it-root.name} management group."
     scope = module.it-root.id
     actions = [
@@ -253,7 +253,7 @@ resource "azurerm_role_assignment" "it-root-unix-operators" {
 
 module "it-root-windows-operators" {
     source = "./modules/rbac"
-    name = "windowsOperator-${module.it-root.name}"
+    name = "Az_WindowsVMOperator"
     description = "Custom rule to operate VMs in the ${module.it-root.name} management group."
     scope = module.it-root.id
     actions = [
@@ -290,7 +290,7 @@ resource "azurerm_role_assignment" "it-root-windows-operators" {
 
 module "it-root-prismacloudfunction" {
     source = "./modules/rbac"
-    name = "prismacloudfunction-${module.it-root.name}"
+    name = "Az_PrismaCloudFunctionReadOnly"
     description = "Az_Prisma-Cloud-Function-Read-Only ${module.it-root.name} management group."
     scope = module.it-root.id
     actions = [
@@ -314,7 +314,7 @@ resource "azurerm_role_assignment" "it-root-prismacloudfunction" {
 
 module "it-root-prismacloudreadonly" {
     source = "./modules/rbac"
-    name = "prismacloudreadonly-${module.it-root.name}"
+    name = "Az_PrismaCloudReadonly"
     description = "Az_Prisma-Cloud-Read-Only ${module.it-root.name} management group."
     scope = module.it-root.id
     actions = [
@@ -340,7 +340,7 @@ resource "azurerm_role_assignment" "it-root-prismacloudreadonly" {
 
 module "it-na-prd-readers" {
     source = "./modules/rbac"
-    name = "reader-${module.it-na-prd.name}"
+    name = "Az_Reader"
     description = "View all resources in the ${module.it-na-prd.name} management group, but does not allow you to make any changes."
     scope = module.it-na-prd.id
     actions = ["*/read",]
@@ -357,7 +357,7 @@ resource "azurerm_role_assignment" "it-na-prd-readers" {
 
 module "it-na-prd-contributors" {
     source = "./modules/rbac"
-    name = "contributor-${module.it-na-prd.name}"
+    name = "Az_Contributor"
     description = "Grants full access to manage all resources in the ${module.it-na-prd.name} management group, but does not allow you to assign roles in Azure RBAC, manage assignments in Azure Blueprints, or share image galleries."
     scope = module.it-na-prd.id
     actions = ["*",]
@@ -381,7 +381,7 @@ resource "azurerm_role_assignment" "it-na-prd-contributors" {
 
 module "it-na-prd-owner" {
     source = "./modules/rbac"
-    name = "owner-${module.it-na-prd.name}"
+    name = "Az_Owner"
     description = "Grants full access to manage all ${module.it-na-prd.name} resources, including the ability to assign roles in Azure RBAC."
     scope = module.it-na-prd.id
     actions = ["*",]
@@ -398,7 +398,7 @@ resource "azurerm_role_assignment" "it-na-prd-owner" {
 
 module "it-na-prd-access-admins" {
     source = "./modules/rbac"
-    name = "access-${module.it-na-prd.name}"
+    name = "Az_AccessAdmin"
     description = "Lets you manage user access to Azure resources in the ${module.it-na-prd.name} management group."
     scope = module.it-na-prd.id
     actions = [
@@ -419,7 +419,7 @@ resource "azurerm_role_assignment" "it-na-prd-access-admins" {
 
 module "it-na-prd-backup-operator" {
     source = "./modules/rbac"
-    name = "backupOperator-${module.it-na-prd.name}"
+    name = "Az_BackupOperator"
     description = "Lets you manage backup services, except removal of backup, vault creation and giving access to others in the ${module.it-na-prd.name} management group."
     scope = module.it-na-prd.id
     actions = [
@@ -517,7 +517,7 @@ resource "azurerm_role_assignment" "it-na-prd-backup-operator" {
 
 module "it-na-prd-billing-reader" {
     source = "./modules/rbac"
-    name = "bilingReader-${module.it-na-prd.name}"
+    name = "Az_BillingReader"
     description = "Allows read access to billing data in the ${module.it-na-prd.name} management group."
     scope = module.it-na-prd.id
     actions = [
@@ -542,7 +542,7 @@ resource "azurerm_role_assignment" "it-na-prd-billing-reader" {
 
 module "it-na-prd-ops-sql-contributor" {
     source = "./modules/rbac"
-    name = "opsSQLcontributor-${module.it-na-prd.name}"
+    name = "Az_OpsSQLContributor"
     description = "Customized to allow SQL agent Push and SQL restore to VM which requires write to compute.virtualmachines.  Lets you manage SQL servers and databases, but not access to them, and not their security -related policies in the ${module.it-na-prd.name} management group."
     scope = module.it-na-prd.id
     actions = [
@@ -602,7 +602,7 @@ resource "azurerm_role_assignment" "it-na-prd-ops-sql-contributor" {
 
 module "it-na-prd-VM-Admin" {
     source = "./modules/rbac"
-    name = "VMAdmin-${module.it-na-prd.name}"
+    name = "Az_VMAdmin"
     description = "Lets you admin virtual machines, with storage account in the ${module.it-na-prd.name} management group."
     scope = module.it-na-prd.id
     actions = [
@@ -671,7 +671,7 @@ resource "azurerm_role_assignment" "it-na-prd-VM-Admin" {
 
 module "it-na-prd-VM-Operator" {
     source = "./modules/rbac"
-    name = "VMOperator-${module.it-na-prd.name}"
+    name = "Az_VMOperator"
     description = "Custom Role to operate VMs in the ${module.it-na-prd.name} management group."
     scope = module.it-na-prd.id
     actions = [
@@ -710,7 +710,7 @@ resource "azurerm_role_assignment" "it-na-prd-VM-Operator" {
 
 module "Prod-readers" {
     source = "./modules/rbac"
-    name = "reader-production-sub"
+    name = "Az_Reader"
     description = "View all resources in the production subscription, but does not allow you to make any changes."
     scope = module.it-na-prd.id #this will need to be replaced with the Cummins Prod subscription information
     actions = ["*/read",]
@@ -727,7 +727,7 @@ resource "azurerm_role_assignment" "Prod-readers" {
 
 module "Prod-contributors" {
     source = "./modules/rbac"
-    name = "contributor-production-sub"
+    name = "Az_Contributor"
     description = "Grants full access to manage all resources in the production subscription, but does not allow you to assign roles in Azure RBAC, manage assignments in Azure Blueprints, or share image galleries."
     scope = module.it-na-prd.id #this will need to be replaced with the Cummins Prod subscription information
     actions = ["*",]
@@ -751,7 +751,7 @@ resource "azurerm_role_assignment" "Prod-contributors" {
 
 module "Prod-owner" {
     source = "./modules/rbac"
-    name = "owner-production-sub"
+    name = "Az_Owner"
     description = "Grants full access to manage all production-sub resources, including the ability to assign roles in Azure RBAC."
     scope = module.it-na-prd.id #this will need to be replaced with the Cummins Prod subscription information
     actions = ["*",]
@@ -768,7 +768,7 @@ resource "azurerm_role_assignment" "Prod-owner" {
 
 module "Prod-access-admins" {
     source = "./modules/rbac"
-    name = "access-production-sub"
+    name = "Az_AccessAdmin"
     description = "Lets you manage user access to Azure resources in the production subscription."
     scope = module.it-na-prd.id #this will need to be replaced with the Cummins Prod subscription information
     actions = [
